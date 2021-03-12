@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,17 +32,18 @@ public class MainActivity extends AppCompatActivity {
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
 
 
-        Call<Post> call = apiInterface.getPost();
+        Call<List<Post>> call = apiInterface.getPost("1");
 
-        call.enqueue(new Callback<Post>() {
+        call.enqueue(new Callback<List<Post>>() {
             @Override
-            public void onResponse(Call<Post> call, Response<Post> response) {
-                PostTitleTV.setText(response.body().getTitle());
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                PostTitleTV.setText(response.body().get(0).getTitle());
             }
 
             @Override
-            public void onFailure(Call<Post> call, Throwable t) {
+            public void onFailure(Call<List<Post>> call, Throwable t) {
                 PostTitleTV.setText(t.getMessage());
+
             }
         });
 

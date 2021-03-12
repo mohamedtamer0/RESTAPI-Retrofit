@@ -1,11 +1,14 @@
 package com.example.restapi_retrofit;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface ApiInterface {
 
-    @GET("posts/1")
-    public Call<Post> getPost();
+    @GET("posts")
+    public Call<List<Post>> getPost(@Query("userId")String userId);
 
 }
